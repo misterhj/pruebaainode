@@ -1,3 +1,4 @@
+//https://shiper.app/dashboard/project/cmi4ux4060002zyghgtbqgsdv
 import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from "express";
