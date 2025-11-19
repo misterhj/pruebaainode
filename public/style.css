@@ -328,8 +328,9 @@ em-emoji-picker {
   }
 
   .chat-body {
-    height: 100%;
+	height: CALC(100% - 155px);
     margin-bottom: 0;
+	padding: 10px 15px;
   }
 
   .chat-body .message .message-text {

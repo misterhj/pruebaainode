@@ -33,7 +33,7 @@ app.post('/api/resources', async (req, res) => {
 
   // Perform operations with the data (e.g., save to a database)
   // For demonstration, we'll just log it and send a success response
-  console.log('Received new data:', newData);
+  //console.log('Received new data:', newData);
   const data = await generateBotResponse(newData);
   // Send a response back to the client
   res.status(201).json(data);
@@ -49,16 +49,14 @@ app.listen(3000, function () {
 
 
 
-const genAI = new GoogleGenerativeAI("AIzaSyA9njOCA37kibB4_tQNiakCzIGGgqCRDNw");
+const genAI = new GoogleGenerativeAI(API_KEY);
 
 async function generateBotResponse(newData) {
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const prompt = "en que año nacio Airton Senna?";
     const result = await model.generateContent(newData);
-    const response = await result.response;
     //console.log(response);
-    return response;
+    return result.response;
 }
 
 //main();
