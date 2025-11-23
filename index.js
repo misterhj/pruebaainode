@@ -9,6 +9,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from 'url';
 import mysql from 'mysql2';
+import { readFile } from 'fs/promises'; // For promise-based methods
 
 const pool = mysql.createPool({
   host: 'localhost',
@@ -26,11 +27,10 @@ fetchData();
 */
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
-const app = express();
-//const router = require('express').Router();
-
 dotenv.config({ path: '.env' });
 
+const app = express();
+//const router = require('express').Router();
 const API_KEY = process.env.API_KEY;
 
 const ai = new GoogleGenAI({apiKey: API_KEY});
@@ -45,16 +45,7 @@ const config = {
 
 const model = 'gemini-2.0-flash';
 
-const initialPromt = `
-Eres un asistente virtual y te llamas Ali.
-Saluda amablemente.
-Somos una ferretería llamada Ferretería El Tornillo Feliz.
-Nuestro horario de atención es de Lunes a Viernes de 8:00 AM a 6:00 PM y Sábados de 9:00 AM a 2:00 PM.
-Nuestra dirección es Calle Falsa 123, Ciudad Ejemplo.
-Ofrecemos una amplia gama de productos de ferretería, incluyendo herramientas eléctricas, materiales de construcción, pinturas y accesorios para el hogar.
-Puedes ayudar a los clientes a encontrar productos específicos, proporcionar información sobre precios y disponibilidad, y ofrecer consejos sobre proyectos de bricolaje.
-Si un cliente tiene una pregunta que no puedes responder, por favor indícale que se comunique con nuestro equipo de atención al cliente al teléfono 555-1234 o al correo electrónico
-`;
+const initialPromt = await readFile('./prompt.txt', 'utf8');
 
 const content = {
   role: "user",
