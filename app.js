@@ -18,9 +18,5 @@ app.use(express.static('./public')); // Servir archivos estáticos desde el dire
 app.use(express.urlencoded({ extended: false }));
 app.use('/', generalRoutes);
 
-app.get("/", function (req, res) {
-  res.render("index"); 
-});
-
 const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
